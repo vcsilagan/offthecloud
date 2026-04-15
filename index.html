@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Off The Cloud — Your Photos, Organised & Yours Forever</title>
+<meta name="description" content="Turn your messy Google Photos export into a clean, organised library sorted by year and month. No JSON files. No confusion. Just your photos, on your drive.">
+<meta name="keywords" content="google takeout help, google photos download organise, google takeout json files fix, download google photos to hard drive, google photos to external drive, organise photos by date">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,500;0,600;1,300;1,500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --ink:#1c1c1a;
+  --ink2:#4a4845;
+  --ink3:#8a8680;
+  --paper:#faf8f4;
+  --paper2:#f2ede6;
+  --paper3:#e5dfd6;
+  --sage:#2563eb;
+  --sage2:#3b82f6;
+  --sage-light:#eff6ff;
+  --warm:#1d4ed8;
+  --warm-light:#eff6ff;
+  --r:12px;
+  --sh:0 2px 16px rgba(28,28,26,0.07);
+  --sh2:0 8px 40px rgba(28,28,26,0.1);
+}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);line-height:1.6;overflow-x:hidden}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(250,248,244,0.93);backdrop-filter:blur(14px);border-bottom:1px solid var(--paper3);height:62px;display:flex;align-items:center;justify-content:space-between;padding:0 2.5rem}
+.logo{font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:500;color:var(--ink);text-decoration:none;display:flex;align-items:center;gap:9px;letter-spacing:0.01em}
+.logo-icon{width:30px;height:30px;background:var(--sage);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:15px}
+.nav-r{display:flex;align-items:center;gap:1.75rem}
+.nav-r a{font-size:0.875rem;color:var(--ink2);text-decoration:none;font-weight:400;transition:color .18s}
+.nav-r a:hover{color:var(--ink)}
+.btn-n{background:var(--sage);color:white!important;padding:9px 22px;border-radius:8px;font-weight:500!important;transition:background .18s!important}
+.btn-n:hover{background:var(--sage2)!important}
+
+/* HERO */
+.hero{padding:140px 2.5rem 100px;max-width:1060px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center}
+.hero-badge{display:inline-flex;align-items:center;gap:7px;background:var(--sage-light);color:var(--sage);font-size:0.78rem;font-weight:500;padding:6px 14px;border-radius:20px;margin-bottom:1.5rem;letter-spacing:0.03em}
+.hero-badge span{width:6px;height:6px;border-radius:50%;background:var(--sage);display:inline-block}
+h1{font-family:'Cormorant Garamond',serif;font-size:clamp(2.8rem,4.5vw,3.8rem);font-weight:500;line-height:1.1;letter-spacing:-0.01em;color:var(--ink);margin-bottom:1.25rem}
+h1 em{font-style:italic;color:var(--sage);font-weight:300}
+.hero-p{font-size:1.05rem;color:var(--ink2);max-width:440px;margin-bottom:2rem;font-weight:300;line-height:1.75}
+.hero-btns{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin-bottom:1.5rem}
+.btn-p{background:var(--sage);color:white;padding:14px 30px;border-radius:10px;text-decoration:none;font-weight:500;font-size:0.95rem;transition:all .18s;box-shadow:0 4px 16px rgba(37,99,235,0.28)}
+.btn-p:hover{background:var(--sage2);transform:translateY(-1px)}
+.btn-s{color:var(--ink2);padding:14px 20px;border-radius:10px;text-decoration:none;font-size:0.9rem;border:1px solid var(--paper3);transition:all .18s}
+.btn-s:hover{border-color:var(--ink3);color:var(--ink)}
+.hero-trust{display:flex;flex-direction:column;gap:6px}
+.trust-i{font-size:0.8rem;color:var(--ink3);display:flex;align-items:center;gap:7px}
+.trust-i::before{content:'✓';color:var(--sage);font-weight:600}
+
+/* BEFORE/AFTER VISUAL */
+.ba-wrap{background:white;border-radius:16px;box-shadow:var(--sh2);overflow:hidden;border:1px solid var(--paper3)}
+.ba-bar{background:var(--paper2);padding:10px 16px;display:flex;align-items:center;gap:6px;border-bottom:1px solid var(--paper3)}
+.dot{width:10px;height:10px;border-radius:50%}
+.dr{background:#ff5f57}.dy{background:#ffbd2e}.dg{background:#28c840}
+.ba-bar-title{font-size:0.72rem;color:var(--ink3);margin-left:8px}
+.ba-cols{display:grid;grid-template-columns:1fr 1fr}
+.ba-col{padding:18px}
+.ba-col:first-child{border-right:1px solid var(--paper2)}
+.ba-lbl{font-size:0.7rem;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;margin-bottom:10px;display:flex;align-items:center;gap:5px}
+.bad{color:#c0392b}.good{color:var(--sage)}
+.fi{display:flex;align-items:center;gap:6px;padding:4px 0;font-size:0.72rem;color:var(--ink2);border-bottom:1px solid var(--paper2)}
+.fi:last-child{border:none}
+.fn{font-family:monospace;font-size:0.65rem;color:var(--ink3);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.fn-j{color:#e67e22}
+.fo{display:flex;align-items:center;gap:6px;padding:5px 0;font-size:0.8rem;font-weight:500}
+.ba-stat{background:var(--sage-light);padding:12px 16px;display:flex;justify-content:space-around;border-top:1px solid var(--paper3)}
+.bstat{text-align:center}
+.bstat-n{font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-weight:600;color:var(--sage);display:block}
+.bstat-l{font-size:0.65rem;text-transform:uppercase;letter-spacing:0.07em;color:var(--ink3)}
+
+/* STORY */
+.story{background:var(--paper2);padding:90px 2.5rem}
+.story-inner{max-width:680px;margin:0 auto}
+.eyebrow{font-size:0.72rem;font-weight:500;letter-spacing:0.14em;text-transform:uppercase;color:var(--sage);margin-bottom:0.75rem}
+.story h2{font-family:'Cormorant Garamond',serif;font-size:clamp(1.9rem,3vw,2.8rem);font-weight:500;line-height:1.2;margin-bottom:1.5rem;color:var(--ink)}
+.story h2 em{font-style:italic;font-weight:300}
+.story p{font-size:1rem;color:var(--ink2);font-weight:300;line-height:1.85;margin-bottom:1rem}
+.story p strong{color:var(--ink);font-weight:500}
+.story-pull{border-left:3px solid #3b82f6;padding:1rem 1.5rem;margin:2rem 0;font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:300;font-style:italic;color:var(--ink2);line-height:1.5;background:#eff6ff;border-radius:0 8px 8px 0}
+
+/* THE PROBLEM */
+.problem{padding:90px 2.5rem;background:var(--paper)}
+.problem-inner{max-width:1000px;margin:0 auto}
+.sh{font-family:'Cormorant Garamond',serif;font-size:clamp(1.8rem,3vw,2.6rem);font-weight:500;line-height:1.2;margin-bottom:0.75rem;color:var(--ink)}
+.sp{font-size:1rem;color:var(--ink3);max-width:580px;margin-bottom:2.5rem;font-weight:300;line-height:1.7}
+.prob-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:1rem}
+.pc{background:white;border-radius:var(--r);padding:22px;border:1px solid var(--paper3)}
+.pc-icon{font-size:1.4rem;margin-bottom:10px}
+.pc h4{font-size:0.92rem;font-weight:500;margin-bottom:5px}
+.pc p{font-size:0.83rem;color:var(--ink3);font-weight:300;line-height:1.55}
+
+/* HOW */
+.how{background:var(--paper2);padding:90px 2.5rem}
+.how-inner{max-width:1000px;margin:0 auto}
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:1rem;margin-top:2.5rem}
+.sc{background:white;border-radius:var(--r);padding:24px 20px;border:1px solid var(--paper3);position:relative;overflow:hidden}
+.sc::after{content:attr(data-n);position:absolute;top:-6px;right:12px;font-family:'Cormorant Garamond',serif;font-size:4.5rem;font-weight:600;color:var(--paper2);line-height:1;pointer-events:none}
+.sc-icon{font-size:1.5rem;margin-bottom:12px}
+.sc h3{font-size:0.9rem;font-weight:500;margin-bottom:5px}
+.sc p{font-size:0.82rem;color:var(--ink3);font-weight:300;line-height:1.5}
+
+/* FEATURES */
+.features{padding:90px 2.5rem;background:var(--paper)}
+.features-inner{max-width:1000px;margin:0 auto}
+.feat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:1rem;margin-top:2.5rem}
+.fc{background:white;border-radius:var(--r);padding:20px;border:1px solid var(--paper3);display:flex;gap:14px}
+.fi2{width:36px;height:36px;border-radius:9px;background:var(--sage-light);display:flex;align-items:center;justify-content:center;font-size:0.95rem;flex-shrink:0}
+.fc h4{font-size:0.88rem;font-weight:500;margin-bottom:3px}
+.fc p{font-size:0.8rem;color:var(--ink3);font-weight:300;line-height:1.5}
+
+/* AFFILIATES */
+.aff{background:var(--paper2);padding:80px 2.5rem}
+.aff-inner{max-width:1000px;margin:0 auto}
+.aff-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:1rem;margin-top:2.5rem}
+.ac{background:white;border-radius:var(--r);padding:20px;border:1px solid var(--paper3)}
+.ac-icon{font-size:1.3rem;margin-bottom:8px}
+.ac-name{font-size:0.9rem;font-weight:500;margin-bottom:3px}
+.ac-desc{font-size:0.8rem;color:var(--ink3);line-height:1.4;font-weight:300}
+.ac-tag{display:inline-block;font-size:10px;padding:2px 8px;border-radius:10px;background:var(--sage-light);color:var(--sage);margin-top:6px;font-weight:500}
+
+/* PRICING */
+.pricing{padding:90px 2.5rem;background:var(--paper)}
+.pricing-inner{max-width:820px;margin:0 auto}
+.pricing-note-top{background:#eff6ff;border:1px solid #e8c88a;border-radius:10px;padding:14px 20px;margin-bottom:2.5rem;font-size:0.875rem;color:var(--ink2);line-height:1.6;font-weight:300}
+.pricing-note-top strong{color:var(--ink);font-weight:500}
+.price-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-top:2rem}
+.pcard{background:white;border-radius:16px;padding:34px 28px;border:1px solid var(--paper3)}
+.pcard.feat{border:2px solid var(--sage);position:relative}
+.feat-tag{position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:var(--sage);color:white;font-size:0.7rem;font-weight:500;padding:3px 16px;border-radius:20px;white-space:nowrap;letter-spacing:0.05em}
+.pname{font-size:0.7rem;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:var(--ink3);margin-bottom:14px}
+.pname-p{color:var(--sage)}
+.pamt{font-family:'Cormorant Garamond',serif;font-size:3.2rem;font-weight:600;color:var(--ink);line-height:1}
+.pamt sup{font-size:1.3rem;vertical-align:top;margin-top:8px;display:inline-block}
+.pper{font-size:0.8rem;color:var(--ink3);margin:4px 0 18px;font-weight:300}
+.plist{list-style:none;margin-bottom:22px}
+.plist li{padding:7px 0;font-size:0.85rem;color:var(--ink2);border-bottom:1px solid var(--paper2);display:flex;align-items:flex-start;gap:9px;font-weight:300}
+.plist li:last-child{border:none}
+.ck{color:var(--sage);font-weight:600;flex-shrink:0}
+.btn-buy{display:block;padding:13px;border-radius:10px;text-align:center;text-decoration:none;font-weight:500;font-size:0.9rem;transition:all .18s}
+.btn-p2{background:var(--sage);color:white;box-shadow:0 4px 14px rgba(37,99,235,0.25)}
+.btn-p2:hover{background:var(--sage2)}
+.btn-o{border:1.5px solid var(--paper3);color:var(--ink)}
+.btn-o:hover{border-color:var(--ink3)}
+
+/* COMMUNITY */
+.community{background:var(--paper2);padding:80px 2.5rem}
+.community-inner{max-width:620px;margin:0 auto;text-align:center}
+.community h2{font-family:'Cormorant Garamond',serif;font-size:clamp(1.8rem,3vw,2.4rem);font-weight:500;margin-bottom:0.75rem}
+.community p{font-size:0.95rem;color:var(--ink2);font-weight:300;line-height:1.75;margin-bottom:1.75rem}
+.comm-pills{display:flex;justify-content:center;gap:0.75rem;flex-wrap:wrap;margin-bottom:1.75rem}
+.pill{font-size:0.8rem;padding:6px 14px;border-radius:20px;background:white;border:1px solid var(--paper3);color:var(--ink2)}
+
+/* FAQ */
+.faq{padding:90px 2.5rem;background:var(--paper)}
+.faq-inner{max-width:700px;margin:0 auto}
+.faq h2{font-family:'Cormorant Garamond',serif;font-size:2.2rem;font-weight:500;margin-bottom:0.4rem}
+.faq-intro{font-size:0.9rem;color:var(--ink3);margin-bottom:2.5rem;font-weight:300}
+.faq-item{border-bottom:1px solid var(--paper3);padding:1.2rem 0;cursor:pointer}
+.faq-q{font-size:0.92rem;font-weight:500;display:flex;justify-content:space-between;align-items:flex-start;gap:1rem}
+.faq-icon{color:var(--ink3);flex-shrink:0;transition:transform .2s;font-size:1.1rem}
+.faq-a{font-size:0.855rem;color:var(--ink2);font-weight:300;line-height:1.7;max-height:0;overflow:hidden;transition:max-height .3s ease,padding .3s}
+.faq-item.open .faq-a{max-height:300px;padding-top:10px}
+.faq-item.open .faq-icon{transform:rotate(45deg)}
+
+/* NEWSLETTER */
+.newsletter{background:var(--sage);padding:70px 2.5rem;text-align:center;color:white}
+.newsletter-inner{max-width:520px;margin:0 auto}
+.newsletter h2{font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:500;margin-bottom:0.5rem}
+.newsletter p{font-size:0.95rem;color:rgba(255,255,255,0.7);font-weight:300;margin-bottom:1.75rem;line-height:1.7}
+.email-form{display:flex;gap:10px;max-width:400px;margin:0 auto}
+.email-form input{flex:1;padding:12px 16px;border-radius:8px;border:none;font-family:'DM Sans',sans-serif;font-size:0.9rem;outline:none}
+.email-form button{background:var(--ink);color:white;border:none;padding:12px 22px;border-radius:8px;font-family:'DM Sans',sans-serif;font-weight:500;cursor:pointer;font-size:0.9rem;transition:background .18s;white-space:nowrap}
+.email-form button:hover{background:#2d2d2a}
+.nl-note{font-size:0.75rem;color:rgba(255,255,255,0.45);margin-top:0.75rem}
+
+/* FOOTER */
+footer{background:var(--ink);padding:48px 2.5rem 30px}
+.footer-inner{max-width:1000px;margin:0 auto}
+.footer-top{display:grid;grid-template-columns:2fr 1fr 1fr;gap:3rem;margin-bottom:2.5rem}
+.footer-brand .logo{color:white;margin-bottom:0.75rem;display:inline-flex}
+.footer-brand p{font-size:0.8rem;color:rgba(255,255,255,0.35);line-height:1.7;max-width:260px;font-weight:300}
+.footer-col h5{font-size:0.7rem;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.35);margin-bottom:1rem}
+.footer-col a{display:block;font-size:0.8rem;color:rgba(255,255,255,0.5);text-decoration:none;margin-bottom:0.5rem;transition:color .18s}
+.footer-col a:hover{color:white}
+.footer-btm{border-top:1px solid rgba(255,255,255,0.08);padding-top:1.2rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem}
+.footer-copy{font-size:0.73rem;color:rgba(255,255,255,0.28)}
+.footer-legal{display:flex;gap:1.5rem}
+.footer-legal a{font-size:0.73rem;color:rgba(255,255,255,0.28);text-decoration:none}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+.hero>*{animation:fadeUp .65s ease both}
+.hero>*:nth-child(1){animation-delay:.1s}
+.hero>*:nth-child(2){animation-delay:.25s}
+
+@media(max-width:780px){
+  .hero{grid-template-columns:1fr;padding:110px 1.5rem 70px;gap:2.5rem}
+  .ba-cols{grid-template-columns:1fr}
+  .ba-col:first-child{border-right:none;border-bottom:1px solid var(--paper2)}
+  .price-grid{grid-template-columns:1fr}
+  .footer-top{grid-template-columns:1fr 1fr}
+  nav{padding:0 1.5rem}
+  .nav-r a:not(.btn-n){display:none}
+  .email-form{flex-direction:column}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#" class="logo"><div class="logo-icon">☁</div>Off The Cloud</a>
+  <div class="nav-r">
+    <a href="#problem">The problem</a>
+    <a href="#how">How it works</a>
+    <a href="#pricing">Pricing</a>
+    <a href="#faq">FAQ</a>
+    <a href="https://gumroad.com" target="_blank" class="btn-n">Get started</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div>
+    <div class="hero-badge"><span></span>Your photos. Your drive. Your peace of mind.</div>
+    <h1>Your memories,<br>organised<br><em>beautifully.</em></h1>
+    <p class="hero-p">Turn your Google Photos export into a clean, browsable library — sorted by year and month. Real photos you can open. Nothing you don't need.</p>
+    <div class="hero-btns">
+      <a href="#pricing" class="btn-p">Get Off The Cloud</a>
+      <a href="#problem" class="btn-s">See how it helps ↓</a>
+    </div>
+    <div class="hero-trust">
+      <span class="trust-i">Works on Windows 10, 11 & Mac</span>
+      <span class="trust-i">Your photos never leave your computer</span>
+      <span class="trust-i">No technical knowledge needed</span>
+    </div>
+  </div>
+  <div>
+    <div class="ba-wrap">
+      <div class="ba-bar">
+        <div class="dot dr"></div><div class="dot dy"></div><div class="dot dg"></div>
+        <span class="ba-bar-title">Before &amp; after Off The Cloud</span>
+      </div>
+      <div class="ba-cols">
+        <div class="ba-col">
+          <div class="ba-lbl bad">❌ Before</div>
+          <div class="fi"><span>📁</span><span class="fn">takeout-20260112T073654Z-3-016</span></div>
+          <div class="fi"><span>📁</span><span class="fn">takeout-20260112T073654Z-3-017</span></div>
+          <div class="fi"><span>📄</span><span class="fn fn-j">IMG_5764.HEIC.json</span></div>
+          <div class="fi"><span>📄</span><span class="fn fn-j">IMG_5765.HEIC.json</span></div>
+          <div class="fi"><span>📄</span><span class="fn fn-j">metadata.json</span></div>
+          <div class="fi"><span>📄</span><span class="fn">0ABD34ED-EC52-40AC...</span></div>
+        </div>
+        <div class="ba-col">
+          <div class="ba-lbl good">✓ After</div>
+          <div class="fo">📁 2024<span style="font-size:0.7rem;color:var(--ink3);font-weight:400;margin-left:4px">→ 06, 07, 08</span></div>
+          <div class="fo">📁 2023<span style="font-size:0.7rem;color:var(--ink3);font-weight:400;margin-left:4px">→ 01, 06, 12</span></div>
+          <div class="fo">📁 2022</div>
+          <div class="fo">📁 2021</div>
+          <div class="fo">📁 2020</div>
+          <div class="fo">📁 2019</div>
+        </div>
+      </div>
+      <div class="ba-stat">
+        <div class="bstat"><span class="bstat-n">4,301</span><span class="bstat-l">Photos saved</span></div>
+        <div class="bstat"><span class="bstat-n">11,493</span><span class="bstat-l">JSON removed</span></div>
+        <div class="bstat"><span class="bstat-n">4,824</span><span class="bstat-l">Duplicates skipped</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STORY -->
+<section class="story">
+  <div class="story-inner">
+    <div class="eyebrow">Why we built this</div>
+    <h2>We wanted our photos back.<br><em>So we made it simple.</em></h2>
+    <p>Like a lot of people, we had years of memories stored in Google Photos — holidays, milestones, everyday moments. We wanted them on our own drive. Safe, private, and accessible without depending on anyone else.</p>
+    <p>The process of getting them back was more confusing than it should have been. <strong>Hundreds of folders with no clear names. Thousands of files we didn't ask for.</strong> Photos mixed in with data we didn't recognise.</p>
+    <div class="story-pull">There had to be a simpler way to just... get your photos back.</div>
+    <p>So we built Off The Cloud. A tool that does exactly what it says — takes everything from your Google export and turns it into something you can actually use. Clean folders. Real photos. Sorted by date. Nothing else.</p>
+    <p>We built it for ourselves first. Then we realised <strong>everyone deserves this</strong> — not just the people who can figure out the technical parts.</p>
+  </div>
+</section>
+
+<!-- THE PROBLEM -->
+<section class="problem" id="problem">
+  <div class="problem-inner">
+    <div class="eyebrow">Sound familiar?</div>
+    <h2 class="sh">Getting your photos should be straightforward.</h2>
+    <p class="sp">Most people run into the same frustrations when trying to download their Google Photos library.</p>
+    <div class="prob-grid">
+      <div class="pc">
+        <div class="pc-icon">🗂️</div>
+        <h4>Folders with unreadable names</h4>
+        <p>Your export arrives as dozens of folders named with long codes. There's no easy way to tell what's inside each one without opening them all.</p>
+      </div>
+      <div class="pc">
+        <div class="pc-icon">📄</div>
+        <h4>Extra files mixed in</h4>
+        <p>Alongside your photos, you get hundreds of metadata files (.json) that most people don't need and don't know what to do with.</p>
+      </div>
+      <div class="pc">
+        <div class="pc-icon">📅</div>
+        <h4>No chronological order</h4>
+        <p>Photos from different years can end up in the same folder. Finding a specific memory means searching through everything.</p>
+      </div>
+      <div class="pc">
+        <div class="pc-icon">🔁</div>
+        <h4>Duplicate photos piling up</h4>
+        <p>If you've downloaded before or run the process more than once, the same photos can appear multiple times with no way to sort them out.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="how" id="how">
+  <div class="how-inner">
+    <div class="eyebrow">How it works</div>
+    <h2 class="sh">Four steps. That's it.</h2>
+    <p class="sp">Off The Cloud is designed to be as simple as possible — no experience needed.</p>
+    <div class="steps">
+      <div class="sc" data-n="1">
+        <div class="sc-icon">📥</div>
+        <h3>Export from Google</h3>
+        <p>Request your photos from Google. They'll email you a set of download links. Save them all to one folder.</p>
+      </div>
+      <div class="sc" data-n="2">
+        <div class="sc-icon">⚡</div>
+        <h3>Run Off The Cloud</h3>
+        <p>Open the app. Select where your downloads are and where you want the organised photos to go. Click go.</p>
+      </div>
+      <div class="sc" data-n="3">
+        <div class="sc-icon">🗂️</div>
+        <h3>Browse your library</h3>
+        <p>Open your destination folder. Every photo and video is now sorted by year and month — exactly as you'd expect.</p>
+      </div>
+      <div class="sc" data-n="4">
+        <div class="sc-icon">✅</div>
+        <h3>Delete when you're ready</h3>
+        <p>Once you're happy everything is on your drive, you can remove your photos from Google and stop paying for storage.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="features" id="features">
+  <div class="features-inner">
+    <div class="eyebrow">What you get</div>
+    <h2 class="sh">Everything handled. Nothing missed.</h2>
+    <div class="feat-grid">
+      <div class="fc"><div class="fi2">📅</div><div><h4>Sorted by year and month</h4><p>Every file lands in the right folder. Browse your life in order.</p></div></div>
+      <div class="fc"><div class="fi2">🧹</div><div><h4>JSON files removed</h4><p>Only your real photos and videos make it through. Nothing else.</p></div></div>
+      <div class="fc"><div class="fi2">🔁</div><div><h4>Duplicates skipped</h4><p>Run it multiple times as new downloads arrive. No doubling up.</p></div></div>
+      <div class="fc"><div class="fi2">🎬</div><div><h4>Photos and videos</h4><p>JPG, HEIC, PNG, RAW, MP4, MOV — every format organised the same way.</p></div></div>
+      <div class="fc"><div class="fi2">🔒</div><div><h4>Stays on your computer</h4><p>Nothing is uploaded anywhere. Your photos never leave your machine.</p></div></div>
+      <div class="fc"><div class="fi2">📋</div><div><h4>Summary after every run</h4><p>See exactly what was organised, what was skipped and what was removed.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- AFFILIATES -->
+<section class="aff">
+  <div class="aff-inner">
+    <div class="eyebrow">Gear we actually use</div>
+    <h2 class="sh">What to store your photos on</h2>
+    <p class="sp">Once your photos are off the cloud, you'll want somewhere reliable to keep them. Here's what we recommend — and use ourselves.</p>
+    <div class="aff-grid">
+      <div class="ac">
+        <div class="ac-icon">💾</div>
+        <div class="ac-name">Samsung T7 Shield</div>
+        <div class="ac-desc">Compact, fast and tough. We picked ours up on sale at the local electronics shop and haven't looked back. 1TB–4TB available.</div>
+        <span class="ac-tag">What we use</span>
+      </div>
+      <div class="ac">
+        <div class="ac-icon">💿</div>
+        <div class="ac-name">WD My Passport</div>
+        <div class="ac-desc">Reliable and widely available. A solid backup option if you want a second copy of your library somewhere separate.</div>
+        <span class="ac-tag">Backup pick</span>
+      </div>
+      <div class="ac">
+        <div class="ac-icon">🔐</div>
+        <div class="ac-name">Proton Mail</div>
+        <div class="ac-desc">If you're thinking about privacy beyond photos, encrypted email is a natural next step. Proton is where we'd start.</div>
+        <span class="ac-tag">Privacy</span>
+      </div>
+      <div class="ac">
+        <div class="ac-icon">🌐</div>
+        <div class="ac-name">Mullvad VPN</div>
+        <div class="ac-desc">No account needed, no logs kept. Browse and download privately while you sort your library.</div>
+        <span class="ac-tag">Privacy</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="pricing" id="pricing">
+  <div class="pricing-inner">
+    <div class="eyebrow">Pricing</div>
+    <h2 class="sh">Simple and honest.</h2>
+    <div class="pricing-note-top">
+      <strong>How it works:</strong> The $29 Starter gives you one complete run — download, organise, done. Each time you have a new batch of photos to process, you use it again. When you're ready to have photos automatically synced on an ongoing basis, the $7.99/month Pro plan handles everything for you.
+    </div>
+    <div class="price-grid">
+      <div class="pcard">
+        <div class="pname">Starter</div>
+        <div class="pamt"><sup>$</sup>29</div>
+        <div class="pper">Per use — pay each time you run it</div>
+        <ul class="plist">
+          <li><span class="ck">✓</span>Organises your Google Photos export</li>
+          <li><span class="ck">✓</span>Windows 10, 11 & Mac</li>
+          <li><span class="ck">✓</span>All photo and video formats</li>
+          <li><span class="ck">✓</span>Removes all JSON files</li>
+          <li><span class="ck">✓</span>Duplicate detection</li>
+          <li><span class="ck">✓</span>Email support included</li>
+        </ul>
+        <a href="https://gumroad.com" target="_blank" class="btn-buy btn-o">Get Starter — $29 →</a>
+      </div>
+      <div class="pcard feat">
+        <div class="feat-tag">MOST POPULAR</div>
+        <div class="pname pname-p">Pro</div>
+        <div class="pamt"><sup>$</sup>7<span style="font-size:1.7rem">.99</span></div>
+        <div class="pper">Per month — cancel any time</div>
+        <ul class="plist">
+          <li><span class="ck">✓</span>Everything in Starter</li>
+          <li><span class="ck">✓</span>New photos synced automatically each month</li>
+          <li><span class="ck">✓</span>Delete from Google after verification</li>
+          <li><span class="ck">✓</span>Priority support</li>
+          <li><span class="ck">✓</span>Early access to new features</li>
+          <li><span class="ck">✓</span>Mobile app — coming soon</li>
+        </ul>
+        <a href="https://gumroad.com" target="_blank" class="btn-buy btn-p2">Get Pro — $7.99/mo →</a>
+      </div>
+    </div>
+    <p style="text-align:center;font-size:0.78rem;color:var(--ink3);margin-top:1.25rem">Secure payment via Gumroad. Instant access after purchase. Cancel Pro any time.</p>
+  </div>
+</section>
+
+<!-- COMMUNITY -->
+<section class="community" id="community">
+  <div class="community-inner">
+    <div class="eyebrow" style="text-align:center">Community</div>
+    <h2>You're in good company.</h2>
+    <p>A growing community of people who've taken their photos back — sharing tips, celebrating wins and helping each other along the way. All posts are reviewed before they go live.</p>
+    <div class="comm-pills">
+      <span class="pill">Share your experience</span>
+      <span class="pill">Ask questions</span>
+      <span class="pill">Privacy tips</span>
+      <span class="pill">Hard drive recommendations</span>
+    </div>
+    <a href="#" class="btn-p" style="display:inline-block">Join the community →</a>
+    <p style="font-size:0.75rem;color:var(--ink3);margin-top:1rem">Moderated personally. No spam. No noise.</p>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq" id="faq">
+  <div class="faq-inner">
+    <h2>Questions</h2>
+    <p class="faq-intro">Honest answers to the things people ask most.</p>
+
+    <div class="faq-item">
+      <div class="faq-q">Do I need to be technical to use this? <span class="faq-icon">+</span></div>
+      <div class="faq-a">Not at all. Every purchase includes a step-by-step setup guide sent to your email. If you can download a file and double-click it, you can use Off The Cloud. And if you get stuck, email us — a real person will help.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">What's the difference between Starter and Pro? <span class="faq-icon">+</span></div>
+      <div class="faq-a">Starter is $29 per use — you pay it each time you have a new batch of photos to organise. This suits people who do occasional big downloads. Pro is $7.99/month and runs automatically — it checks for new photos, downloads and organises them for you each month without you having to do anything.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Will it delete my photos from Google? <span class="faq-icon">+</span></div>
+      <div class="faq-a">No — not unless you choose to. Off The Cloud organises everything onto your drive first. You review it, make sure you're happy, and then decide what to do with your Google Photos account. The Starter plan never touches Google. Pro can delete after verification, but only if you turn that on.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">I already have a Takeout download sitting on my computer. Can it fix that? <span class="faq-icon">+</span></div>
+      <div class="faq-a">Yes. Whether your files are still in ZIPs or already extracted, Off The Cloud will find all the photos and videos, remove the JSON files, sort everything by date and skip any duplicates. This is exactly what it was built for.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">What computer do I need? <span class="faq-icon">+</span></div>
+      <div class="faq-a">Windows 10, Windows 11, or Mac running macOS 10.14 (Mojave) or newer. If you're not sure, the setup guide that comes with your purchase will tell you exactly how to check.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Are my photos private? Does Off The Cloud see them? <span class="faq-icon">+</span></div>
+      <div class="faq-a">Completely private. Off The Cloud runs entirely on your computer. Nothing is sent to us, nothing is uploaded anywhere. We have no way to see your photos — and that's exactly how it should be.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">What if I get stuck at any point? <span class="faq-icon">+</span></div>
+      <div class="faq-a">Email us at hello@offtheclo.ud — every purchase includes real support from a real person. Most people hear back within 24 hours. We'll walk through it with you until it's sorted.</div>
+    </div>
+  </div>
+</section>
+
+<!-- NEWSLETTER -->
+<section class="newsletter">
+  <div class="newsletter-inner">
+    <h2>Stay in the loop.</h2>
+    <p>New features, privacy tips and community updates — straight to your inbox. No noise, no selling your data. Obviously.</p>
+    <div class="email-form">
+      <input type="email" placeholder="Your email address">
+      <button type="button">Subscribe</button>
+    </div>
+    <p class="nl-note">Unsubscribe any time. We don't share your email with anyone.</p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a href="#" class="logo" style="color:white"><div class="logo-icon">☁</div>Off The Cloud</a>
+        <p>Your photos, your drive, your peace of mind.</p>
+      </div>
+      <div class="footer-col">
+        <h5>Product</h5>
+        <a href="#problem">The problem</a>
+        <a href="#how">How it works</a>
+        <a href="#features">Features</a>
+        <a href="#pricing">Pricing</a>
+        <a href="#faq">FAQ</a>
+      </div>
+      <div class="footer-col">
+        <h5>Connect</h5>
+        <a href="#">Community</a>
+        <a href="#">Pinterest</a>
+        <a href="#">Newsletter</a>
+        <a href="mailto:hello@offtheclo.ud">Contact</a>
+        <a href="#">Privacy Policy</a>
+      </div>
+    </div>
+    <div class="footer-btm">
+      <p class="footer-copy">© 2026 Off The Cloud. Made with care.</p>
+      <div class="footer-legal">
+        <a href="#">Privacy</a>
+        <a href="#">Terms</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+document.querySelectorAll('.faq-item').forEach(i=>{
+  i.addEventListener('click',()=>{
+    const o=i.classList.contains('open');
+    document.querySelectorAll('.faq-item').forEach(x=>x.classList.remove('open'));
+    if(!o)i.classList.add('open');
+  });
+});
+document.querySelectorAll('a[href^="#"]').forEach(a=>{
+  a.addEventListener('click',e=>{
+    const t=document.querySelector(a.getAttribute('href'));
+    if(t){e.preventDefault();t.scrollIntoView({behavior:'smooth'});}
+  });
+});
+</script>
+</body>
+</html>

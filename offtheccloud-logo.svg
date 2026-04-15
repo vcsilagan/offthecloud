@@ -1,0 +1,36 @@
+<svg width="320" height="120" viewBox="0 0 320 120" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="cloudgrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#60a5fa"/>
+      <stop offset="100%" style="stop-color:#2563eb"/>
+    </linearGradient>
+    <linearGradient id="basegrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#3b82f6"/>
+      <stop offset="100%" style="stop-color:#1d4ed8"/>
+    </linearGradient>
+  </defs>
+
+  <g transform="translate(16, 20)">
+    <!-- Cloud body -->
+    <circle cx="38" cy="44" r="22" fill="url(#cloudgrad)"/>
+    <circle cx="60" cy="33" r="26" fill="url(#cloudgrad)"/>
+    <circle cx="86" cy="37" r="20" fill="url(#cloudgrad)"/>
+    <circle cx="72" cy="50" r="18" fill="url(#cloudgrad)"/>
+    <circle cx="48" cy="52" r="16" fill="url(#cloudgrad)"/>
+    <rect x="18" y="46" width="90" height="26" fill="url(#cloudgrad)" rx="4"/>
+
+    <!-- Arrow — centred at x=63, cloud spans x=18 to x=108, centre=63 -->
+    <!-- Shaft -->
+    <rect x="59" y="18" width="8" height="26" rx="3" fill="white"/>
+    <!-- Arrowhead -->
+    <polygon points="46,40 80,40 63,60" fill="white"/>
+
+    <!-- Drive bar -->
+    <rect x="28" y="74" width="70" height="7" rx="3.5" fill="url(#basegrad)"/>
+    <rect x="40" y="83" width="46" height="3.5" rx="1.75" fill="url(#basegrad)" opacity="0.5"/>
+  </g>
+
+  <!-- Wordmark -->
+  <text x="138" y="52" font-family="Georgia, 'Times New Roman', serif" font-size="31" font-weight="600" fill="#1c1c1a" letter-spacing="-0.5">Off The</text>
+  <text x="138" y="87" font-family="Georgia, 'Times New Roman', serif" font-size="31" font-weight="300" font-style="italic" fill="#3b82f6" letter-spacing="-0.5">Cloud</text>
+</svg>

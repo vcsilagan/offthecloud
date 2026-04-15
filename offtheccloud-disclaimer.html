@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Off The Cloud — Before You Buy</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'DM Sans',sans-serif;background:#faf8f4;color:#1c1c1a;line-height:1.6;padding:40px 20px}
+.wrap{max-width:640px;margin:0 auto}
+.logo{font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-weight:500;color:#1c1c1a;margin-bottom:2rem;display:flex;align-items:center;gap:8px}
+.logo-icon{width:28px;height:28px;background:#3b82f6;border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:14px}
+h1{font-family:'Cormorant Garamond',serif;font-size:1.9rem;font-weight:500;margin-bottom:0.4rem}
+.intro{font-size:0.875rem;color:#8a8680;margin-bottom:2rem;font-weight:300}
+
+/* COMPATIBILITY BOX */
+.compat-box{background:#eff6ff;border:2px solid #3b82f6;border-radius:12px;padding:22px;margin-bottom:2rem}
+.compat-box h2{font-size:1rem;font-weight:500;color:#1e40af;margin-bottom:6px}
+.compat-intro{font-size:0.85rem;color:#1e40af;margin-bottom:16px;font-weight:300}
+.compat-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px}
+.ci{display:flex;align-items:center;gap:8px;font-size:0.875rem;font-weight:400;padding:7px 10px;border-radius:8px}
+.ci.yes{color:#15803d;background:#f0fdf4;border:1px solid #bbf7d0}
+.ci.no{color:#b91c1c;background:#fff1f2;border:1px solid #fecdd3}
+.ci.soon{color:#854d0e;background:#fefce8;border:1px solid #fef08a}
+.ci-icon{font-size:14px;flex-shrink:0}
+.compat-warning{background:#fee2e2;border:1px solid #fca5a5;border-radius:8px;padding:12px 14px;font-size:0.83rem;color:#991b1b;line-height:1.6}
+.compat-warning strong{font-weight:500}
+
+/* CHECKBOX SECTION */
+.checkbox-section{background:white;border:1.5px solid #e5dfd6;border-radius:12px;padding:22px;margin-bottom:2rem}
+.checkbox-section h2{font-size:0.95rem;font-weight:500;margin-bottom:6px}
+.checkbox-section .sub{font-size:0.82rem;color:#8a8680;margin-bottom:16px;font-weight:300}
+.cb-item{display:flex;align-items:flex-start;gap:12px;padding:12px;border-radius:8px;margin-bottom:8px;cursor:pointer;border:1px solid #e5dfd6;transition:border-color .15s,background .15s}
+.cb-item:hover{background:#faf8f4}
+.cb-item:last-child{margin-bottom:0}
+.cb-item input[type="checkbox"]{width:18px;height:18px;flex-shrink:0;margin-top:1px;accent-color:#3b82f6;cursor:pointer}
+.cb-label{font-size:0.85rem;color:#4a4845;font-weight:300;line-height:1.5}
+.cb-label strong{font-weight:500;color:#1c1c1a}
+.cb-item.checked{border-color:#3b82f6;background:#eff6ff}
+.proceed-btn{display:block;width:100%;padding:14px;background:#3b82f6;color:white;border:none;border-radius:10px;font-family:'DM Sans',sans-serif;font-size:0.95rem;font-weight:500;cursor:pointer;margin-top:16px;transition:background .15s;opacity:0.4;pointer-events:none}
+.proceed-btn.active{opacity:1;pointer-events:all}
+.proceed-btn.active:hover{background:#2563eb}
+.tick-note{font-size:0.75rem;color:#8a8680;text-align:center;margin-top:8px}
+
+/* SECTIONS */
+.section{margin-bottom:1.75rem;padding-bottom:1.75rem;border-bottom:1px solid #e5dfd6}
+.section:last-child{border-bottom:none}
+h2{font-size:0.95rem;font-weight:500;margin-bottom:0.75rem;color:#1c1c1a}
+p{font-size:0.875rem;color:#4a4845;font-weight:300;line-height:1.8;margin-bottom:0.75rem}
+p:last-child{margin-bottom:0}
+.callout{background:#fefce8;border-left:3px solid #ca8a04;padding:12px 16px;border-radius:0 8px 8px 0;font-size:0.875rem;color:#854d0e;line-height:1.6;margin-bottom:0.75rem}
+.callout strong{font-weight:500}
+ul{list-style:none;padding:0}
+ul li{font-size:0.875rem;color:#4a4845;font-weight:300;padding:5px 0;padding-left:16px;position:relative;line-height:1.6}
+ul li::before{content:'—';position:absolute;left:0;color:#8a8680}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="logo"><div class="logo-icon">☁</div>Off The Cloud</div>
+  <h1>Before you buy</h1>
+  <p class="intro">Two minutes to read. Saves everyone time.</p>
+
+  <!-- COMPATIBILITY — FRONT AND CENTRE -->
+  <div class="compat-box">
+    <h2>Step one — check your device</h2>
+    <p class="compat-intro">Off The Cloud currently runs on Windows computers only. Please find your device below before proceeding.</p>
+    <div class="compat-grid">
+      <div class="ci yes"><span class="ci-icon">✓</span>Windows 10</div>
+      <div class="ci yes"><span class="ci-icon">✓</span>Windows 11</div>
+      <div class="ci soon"><span class="ci-icon">⏳</span>Mac — coming soon</div>
+      <div class="ci no"><span class="ci-icon">✗</span>iPhone / iPad</div>
+      <div class="ci no"><span class="ci-icon">✗</span>Android phone</div>
+      <div class="ci no"><span class="ci-icon">✗</span>Chromebook</div>
+      <div class="ci no"><span class="ci-icon">✗</span>Linux</div>
+      <div class="ci no"><span class="ci-icon">✗</span>Windows 7 or 8</div>
+    </div>
+    <div class="compat-warning">
+      <strong>Not on Windows 10 or 11?</strong> Please do not purchase yet — Off The Cloud will not work on your device. Mac, mobile and other versions are actively in development and will be available soon. Join the waitlist to be notified when your version is ready.
+    </div>
+  </div>
+
+  <!-- CONFIRMATION CHECKBOXES -->
+  <div class="checkbox-section">
+    <h2>Please confirm before continuing</h2>
+    <p class="sub">Tick each box to confirm you have read and understood the terms. This is required before purchase.</p>
+
+    <label class="cb-item" id="cb1-wrap">
+      <input type="checkbox" id="cb1" onchange="updateBtn()">
+      <span class="cb-label"><strong>I confirm my computer runs Windows 10 or Windows 11.</strong> I understand that Off The Cloud does not currently work on Mac, iPhone, Android, Chromebook or any other device.</span>
+    </label>
+
+    <label class="cb-item" id="cb2-wrap">
+      <input type="checkbox" id="cb2" onchange="updateBtn()">
+      <span class="cb-label"><strong>I understand this is a per-use purchase.</strong> Each time I use Off The Cloud, I pay $29. There is no ongoing access included. If I want automatic monthly syncing, that is the separate Pro plan at $7.99/month.</span>
+    </label>
+
+    <label class="cb-item" id="cb3-wrap">
+      <input type="checkbox" id="cb3" onchange="updateBtn()">
+      <span class="cb-label"><strong>I understand I need to complete a Google Takeout export first.</strong> Off The Cloud organises files from a Google Takeout download — it cannot connect to Google directly. I will need to do this step before running the tool.</span>
+    </label>
+
+    <label class="cb-item" id="cb4-wrap">
+      <input type="checkbox" id="cb4" onchange="updateBtn()">
+      <span class="cb-label"><strong>I have read and accept the full purchase terms below.</strong> I understand that refunds are only available for verified technical faults on supported Windows 10/11 devices.</span>
+    </label>
+
+    <button class="proceed-btn" id="proceed-btn" onclick="window.location.href='https://gumroad.com'">
+      I confirm — take me to checkout →
+    </button>
+    <p class="tick-note">All four boxes must be ticked to proceed.</p>
+  </div>
+
+  <!-- FULL TERMS -->
+  <div class="section">
+    <h2>How the Starter plan works — $29 per run</h2>
+    <div class="callout"><strong>Think of it like a laundromat.</strong> You pay each time you bring your laundry. Come back next week, next month, or next year with a new bag of photos — that is another $29. Each purchase covers one complete run of the tool, and nothing more.</div>
+    <p>There is no ongoing access, no free return visits, and nothing stored on our end between runs. Once you find yourself coming back often enough that $7.99/month would cost you less, switching to Pro is easy — just choose it at checkout next time.</p>
+  </div>
+
+  <div class="section">
+    <h2>How the Pro plan works — $7.99 per month</h2>
+    <p>Pro is a monthly subscription. Your billing date is set automatically to the day you first subscribe — for example, if you sign up on the 15th of the month, you will be charged on the 15th of every following month. You do not choose the date.</p>
+    <p>Everything is handled automatically. You do not need to do anything each month — the tool runs on your behalf. Cancel at any time through Gumroad. No penalty, no questions asked. Cancellation takes effect at the end of your current billing month.</p>
+  </div>
+
+  <div class="section">
+    <h2>What Off The Cloud does not do</h2>
+    <ul>
+      <li>It does not connect to or log in to your Google account</li>
+      <li>It does not delete anything from Google Photos — that is always your choice</li>
+      <li>It does not upload your photos anywhere — everything stays on your computer</li>
+      <li>It requires a completed Google Takeout export to work — this must be done before running the tool</li>
+      <li>It cannot recover photos that were not included in your export</li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <h2>Refunds</h2>
+    <p>By confirming the checkboxes above, you have confirmed your device is compatible and you understand what you are purchasing. For this reason, we are unable to offer refunds for incompatible devices or change of mind after the setup guide has been delivered.</p>
+    <p>If Off The Cloud does not run correctly on a supported Windows 10 or 11 device despite following the setup guide, contact us through the website. We will do our best to help. If the issue genuinely cannot be resolved, a refund will be considered.</p>
+    <p>Please note: we are a small team. We aim to respond to all support requests within 5–7 business days. We will always get back to you.</p>
+  </div>
+
+  <div class="section">
+    <h2>Your privacy</h2>
+    <p>We collect your email address at purchase to send your setup guide and respond to support. We do not share it with anyone. Off The Cloud runs entirely on your computer — we have no access to your photos at any point.</p>
+  </div>
+
+</div>
+
+<script>
+function updateBtn() {
+  const all = ['cb1','cb2','cb3','cb4'].every(id => document.getElementById(id).checked);
+  const btn = document.getElementById('proceed-btn');
+  btn.classList.toggle('active', all);
+  ['cb1','cb2','cb3','cb4'].forEach(id => {
+    const wrap = document.getElementById(id + '-wrap');
+    wrap.classList.toggle('checked', document.getElementById(id).checked);
+  });
+}
+</script>
+</body>
+</html>
